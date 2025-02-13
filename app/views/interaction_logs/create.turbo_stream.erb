@@ -1,0 +1,7 @@
+<%= turbo_stream.update "project_comment" do %>
+  <%= render "form", project: @project %>
+<% end %>
+
+<%= turbo_stream.update "project_user_comments" do %>
+  <%= render 'projects/project_interaction_logs', project: @project %>
+<% end %>

@@ -3,6 +3,7 @@ html
   head
     title = content_for(:title) || "Project Logbook"
     meta name="viewport" content="width=device-width,initial-scale=1"
+    script src="https://cdn.tailwindcss.com"
     meta name="apple-mobile-web-app-capable" content="yes"
     meta name="mobile-web-app-capable" content="yes"
     = csrf_meta_tags
@@ -22,4 +23,5 @@ html
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
   body
+    = render partial: "layouts/navbar"
     = yield

@@ -1,0 +1,34 @@
+div.bg-white.p-4.rounded-lg.shadow-md
+  h2.text-lg.font-semibold.mb-4 Interaction Logs
+
+  - if project.interaction_logs.any?
+    ul.space-y-4
+      - project.interaction_logs.order(updated_at: :desc).each do |interaction_log|
+        li.flex.items-start.space-x-3
+          div
+            p
+              i.fa-solid.fa-calendar-days.mr-2
+              span.text-gray-600.font-semibold = interaction_log.updated_at.strftime("%b %d, %Y - %I:%M %p")
+            p
+              - if interaction_log.feedback?
+                i.fa-solid.fa-user.mr-2
+                span.font-semibold.mr-2 = "#{interaction_log.user.full_name} :"
+                span.italic.text-gray-700 = "\"#{interaction_log.feedback}\""
+              - else
+                - if interaction_log.previous_stage.present? && interaction_log.current_stage.present?
+                  i.fa-solid.fa-rotate-right.mr-2
+                  span.font-semibold.mr-2 = "Staus changed:"
+                  span = interaction_log.previous_stage
+                  | ---> 
+                  span = interaction_log.current_stage
+                  span.italic.text-gray-600 = " by #{interaction_log.user.full_name}"
+                - elsif interaction_log.current_stage.present?
+                  i.fa-solid.fa-rotate-right.mr-2
+                  span.font-semibold.mr-2 = "Staus changed:"
+                  span = interaction_log.current_stage
+                - else
+                  i.fa-solid.fa-rotate-right.mr-2
+                  span.font-semibold.mr-2 = "Staus changed:"
+
+  - else
+    p.text-gray-500.italic No Interaction yet.

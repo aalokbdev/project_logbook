@@ -11,5 +11,11 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "projects#index"
+
+  resources :projects do
+    patch "update_status", on: :member, as: :update_status
+
+    resources :interaction_logs, only: [ :create ], defaults: { commentable_type: "Project" }
+  end
 end

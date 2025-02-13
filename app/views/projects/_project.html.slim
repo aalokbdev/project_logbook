@@ -1,0 +1,16 @@
+div.flex.flex-col
+  div.flex.items-center.justify-between.my-3
+    p.font-medium.flex-1
+      strong.block.font-medium.mb-1 Title:
+      = project.name
+    = form_with model: project, url: update_status_project_path(id: project.id), method: :patch, data: { turbo: true }, class: "inline-block text-right" do |form|
+      label.text-gray-700.font-medium Status:
+      = form.select :current_status, Project.current_statuses.keys, {}, class: "border rounded px-2 py-1 text-gray-700 ml-2", onchange: "this.form.requestSubmit();"
+
+  div.my-3
+    strong.block.font-medium.mb-1 Description:
+    = project.details
+
+  div.my-3
+    strong.block.font-medium.mb-1 Creator:
+    = project.creator.full_name

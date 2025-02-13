@@ -5,6 +5,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :projects, dependent: :destroy, foreign_key: :creator_id
+
   def full_name
     "#{first_name} #{last_name}"
   end

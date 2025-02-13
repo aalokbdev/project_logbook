@@ -1,0 +1,3 @@
+class StatusLog < InteractionLog
+    
+end

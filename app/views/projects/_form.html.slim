@@ -1,0 +1,25 @@
+.div.flex.items-center.justify-center.min-h-screen.bg-gray-100
+  .w-full.max-w-md.p-6.bg-white.rounded-2xl.shadow-md
+    h2.text-2xl.font-bold.text-center.text-gray-800 Create Project
+
+    = form_with model: project, class: "mt-4" do |form|
+      - if project.errors.any?
+        .p-4.mb-4.text-sm.text-red-700.bg-red-100.rounded-lg.border.border-red-400
+          strong = pluralize(project.errors.count, "error") + " prohibited this project from being saved:"
+          ul.mt-2.list-disc.pl-6
+            - project.errors.each do |error|
+              li = error.full_message
+
+      .mb-4
+        = form.label :name, class: "block text-sm font-medium text-gray-700"
+        = form.text_field :name, required: true, class: "w-full px-3 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+
+      .mb-4
+        = form.label :details, class: "block text-sm font-medium text-gray-700"
+        = form.textarea :details, rows: 4, class: "w-full px-3 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+
+      .mt-6
+        = form.submit "Save Project", class: "w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+
+      .mt-4.text-sm.text-center.text-gray-600
+        = link_to "Back to projects", projects_path, class: "w-full rounded-md px-3.5 py-3 bg-gray-100 hover:bg-gray-50 inline-block font-medium"
